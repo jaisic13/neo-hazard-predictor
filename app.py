@@ -1,12 +1,29 @@
 import streamlit as st
 import joblib
+import zipfile
+import os
 import requests
 from datetime import date
 import random 
 
+if not os.path.exists("model.pkl"):
+    try:
+        with zipfile.ZipFile("model.zip", "r") as zip_ref:
+            zip_ref.extractall()
+        st.success("✅ Model extracted successfully.")
+    except Exception as e:
+        st.error(f"❌ Failed to extract model: {e}")
+
+# 📦 Load the model
+if os.path.exists("model.pkl"):
+    with open("model.pkl", "rb") as f:
+        model = joblib.load(f)
+else:
+    st.error("❌ model.pkl not found — please check model.zip")
+
 # Load your trained model (adjust path as needed)
-with open('model.pkl', 'rb') as f:
-    model = joblib.load('model.pkl')
+#with open('model.pkl', 'rb') as f:
+#    model = joblib.load('model.pkl')
 
     st.markdown(
     """
