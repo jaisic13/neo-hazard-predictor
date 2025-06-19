@@ -5,21 +5,40 @@ import os
 import requests
 from datetime import date
 import random 
+import urllib.request
 
+MODEL_URL = "https://drive.google.com/uc?export=download&id=1Uwf2dZ06h_anZ7WoNZET0uJX45OacNvX"
+
+# Download model if not present
 if not os.path.exists("model.pkl"):
     try:
-        with zipfile.ZipFile("model.zip", "r") as zip_ref:
-            zip_ref.extractall()
-        st.success("✅ Model extracted successfully.")
+        st.info("⬇️ Downloading model from Google Drive...")
+        urllib.request.urlretrieve(MODEL_URL, "model.pkl")
+        st.success("✅ Model downloaded successfully!")
     except Exception as e:
-        st.error(f"❌ Failed to extract model: {e}")
+        st.error(f"❌ Failed to download model: {e}")
 
-# 📦 Load the model
+# Load the model
 if os.path.exists("model.pkl"):
     with open("model.pkl", "rb") as f:
         model = joblib.load(f)
 else:
-    st.error("❌ model.pkl not found — please check model.zip")
+    st.error("❌ model.pkl not available.")
+
+#if not os.path.exists("model.pkl"):
+#    try:
+#        with zipfile.ZipFile("model.zip", "r") as zip_ref:
+#            zip_ref.extractall()
+#        st.success("✅ Model extracted successfully.")
+#    except Exception as e:
+#        st.error(f"❌ Failed to extract model: {e}")
+#
+# 📦 Load the model
+#if os.path.exists("model.pkl"):
+#    with open("model.pkl", "rb") as f:
+#        model = joblib.load(f)
+#else:
+#    st.error("❌ model.pkl not found — please check model.zip")
 
 # Load your trained model (adjust path as needed)
 #with open('model.pkl', 'rb') as f:
