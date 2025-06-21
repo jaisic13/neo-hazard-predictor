@@ -6,7 +6,7 @@ from datetime import date
 import random 
 import urllib.request
 
-MODEL_URL = "https://drive.google.com/uc?export=download&id=1Uwf2dZ06h_anZ7WoNZET0uJX45OacNvX"
+MODEL_URL = "https://drive.google.com/file/d/1ettapiX2lYJloEbA_j7Nv95_GX3i318j/view?usp=sharing"
 
 # Download model if not present
 if not os.path.exists("model.pkl"):
